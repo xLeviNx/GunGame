@@ -1,5 +1,3 @@
-// For GunGame 2.13 - last updated 10:58 PM 1/2/2013
-
 [en]
 AFK_KILL = Your kill did not count because %%n%s%%e was AFK
 AUTOVOTE_RES1 = Playing GunGame with teamplay mode
@@ -89,12 +87,7 @@ RULES_CONSOLE_LINE16 = Say !top10 to see the top 10 winners on the server.
 RULES_CONSOLE_LINE17 = Say !restart to reset you to level 1.
 RULES_MESSAGE_LINE1 = Game rules and all say commands are now listed in your console
 RULES_MESSAGE_LINE2 = Some useful say commands:
-RULES_MESSAGE_LINE3 :
-Say !top10 to see the top 10 players on this server^n
-Say !level to see your current level and who is winning^n
-Say !weapons to see the weapon order^n
-Say !score to see player scores
-:
+RULES_MESSAGE_LINE3 = Say !top10 to see the top 10 players on this server^nSay !level to see your current level and who is winning^nSay !weapons to see the weapon order^nSay !score to see player scores^n
 SCORES = Scores
 SLOW_DOWN = Slow down! This is still the warmup round!
 SPAWNPROTECTED_KILL = Your kill did not count because %%n%s%%e spawned in the last %%g%i%%e seconds
@@ -130,11 +123,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Type !rules for instructions on how to play and a list of commands^n
-Type !level to get your level info and who is leading^n
-Type !score to get a list of all players scores and winnings^n
-:
+WELCOME_MESSAGE_LINE8 = Type !rules for instructions on how to play and a list of commands^nType !level to get your level info and who is leading^nType !score to get a list of all players scores and winnings^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -271,12 +260,7 @@ RULES_CONSOLE_LINE16 = S4y !+0p10 +0 $33 +h3 +0p 10 w!|\||\|3|2$ 0|\| +h3 $3|2\/
 RULES_CONSOLE_LINE17 = S4y !|23$+4|2+ +0 |23$3+ J00 +0 13\/31 1.
 RULES_MESSAGE_LINE1 = G4m3 |2u13$ 4N|) 411 $4y c0mm4N|)$ 4|23 N0w 1!$+3|) !N J00|2 c0N$013
 RULES_MESSAGE_LINE2 = S0m3 u$3|=u1 $4y c0mm4N|)$:
-RULES_MESSAGE_LINE3 :
-S4y !+0p10 +0 $33 +h3 +0p 10 p14y3|2$ 0N +h!$ $3|2V3|2^n
-S4y !13V31 +0 $33 J00|2 cu|2|23N+ 13V31 4N|) wh0 !$ w!NN!Ng^n
-S4y !w34p0N$ +0 $33 +h3 w34p0N 0|2|)3|2^n
-S4y !$c0|23 +0 $33 p14y3|2 $c0|23$
-:
+RULES_MESSAGE_LINE3 = S4y !+0p10 +0 $33 +h3 +0p 10 p14y3|2$ 0N +h!$ $3|2V3|2^nS4y !13V31 +0 $33 J00|2 cu|2|23N+ 13V31 4N|) wh0 !$ w!NN!Ng^nS4y !w34p0N$ +0 $33 +h3 w34p0N 0|2|)3|2^nS4y !$c0|23 +0 $33 p14y3|2 $c0|23$
 SCORES = Sc0|23$
 SLOW_DOWN = S10w |)0w|\|! Th!$ !$ $+!11 +h3 w4|2mup |20u|\||)!
 SPAWNPROTECTED_KILL = J00|2 k!11 |)!|) |\|0+ c0u|\|+ |33c4u$3 %%n%s%%e $p4w|\|3|) !|\| +h3 14$+ %%g%i%%e $3c0|\||)$
@@ -312,11 +296,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = D34+hm4+ch M0|)3 !$ \rENABLED!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Typ3 !|2u13$ |=0|2 !N$+|2uc+!0N$ 0N h0w +0 p14y 4N|) 4 1!$+ 0|= c0mm4N|)$^n
-Typ3 !13V31 +0 g3+ J00|2 13V31 !N|=0 4N|) wh0 !$ 134|)!Ng^n
-Typ3 !$c0|23 +0 g3+ 4 1!$+ 0|= 411 p14y3|2$ $c0|23$ 4N|) w!NN!Ng$ !N J00|2 c0N$013^n
-:
+WELCOME_MESSAGE_LINE8 = Typ3 !|2u13$ |=0|2 !N$+|2uc+!0N$ 0N h0w +0 p14y 4N|) 4 1!$+ 0|= c0mm4N|)$^nTyp3 !13V31 +0 g3+ J00|2 13V31 !N|=0 4N|) wh0 !$ 134|)!Ng^nTyp3 !$c0|23 +0 g3+ 4 1!$+ 0|= 411 p14y3|2$ $c0|23$ 4N|) w!NN!Ng$ !N J00|2 c0N$013^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -453,12 +433,7 @@ RULES_CONSOLE_LINE16 = Sag !top10 um die Top 10 Gewinner auf dem Server zu sehen
 RULES_CONSOLE_LINE17 = Sag !restart um Dich auf Level 1 zurueckzusetzen.
 RULES_MESSAGE_LINE1 = Die Spielregeln und alle Chatbefehle sind jetzt in deiner Konsole aufgelistet
 RULES_MESSAGE_LINE2 = Einige nuetzliche Chatbefehle:
-RULES_MESSAGE_LINE3 :
-Sag !top10 um die Top 10 Spieler auf diesem Server zu sehen^n
-Sag !level um Deinen momentanen Level und die Person, die gewinnt zu sehen^n
-Sag !weapons um die Waffenreihenfolge zu sehen^n
-Sag !score um die Spielerpunkte zu sehen
-:
+RULES_MESSAGE_LINE3 = Sag !top10 um die Top 10 Spieler auf diesem Server zu sehen^nSag !level um Deinen momentanen Level und die Person, die gewinnt zu sehen^nSag !weapons um die Waffenreihenfolge zu sehen^nSag !score um die Spielerpunkte zu sehen^n
 SCORES = Punkte
 SLOW_DOWN = Langsam! Das ist noch die Aufwaermrunde!
 SPAWNPROTECTED_KILL = Dein Kill zaehlte nicht, weil %%n%s%%e in den letzten %%g%i%%e Sekunden gespawnt ist
@@ -494,11 +469,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Modus ist \rAKTIVIERT!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Modus ist \rAKTIVIERT!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Modus ist \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = Diese Runde hat \y%i\w Level!
-WELCOME_MESSAGE_LINE8 :
-Tippe !rules fuer Instruktionen, wie man den Mod spielt und um eine Liste der Befehle zu sehen^n
-Tippe !level um Deine Levelinfo und den momentan Fuehrenden zu sehen^n
-Tippe !score um eine Liste von allen Spielern, Punkten und Gewinnen in Deiner Konsole zu bekommen^n
-:
+WELCOME_MESSAGE_LINE8 = Tippe !rules fuer Instruktionen, wie man den Mod spielt und um eine Liste der Befehle zu sehen^nTippe !level um Deine Levelinfo und den momentan Fuehrenden zu sehen^nTippe !score um eine Liste von allen Spielern, Punkten und Gewinnen in Deiner Konsole zu bekommen^n
 WIN_MOTD_LINE1 = %s gewinnt!
 WIN_MOTD_LINE2 = Das %sen Team
 WIN_MOTD_LINE3 = ist der Gewinner!
@@ -635,12 +606,7 @@ RULES_CONSOLE_LINE16 = Zeg !top10 voor de top10 winnaars te zien in deze server.
 RULES_CONSOLE_LINE17 = Zeg !restart voor terug op level 1 te beginnen.
 RULES_MESSAGE_LINE1 = Spel regels en alles zeg commands zijn nu zichtbaar in de console.
 RULES_MESSAGE_LINE2 = Een paar bruikbare commands:
-RULES_MESSAGE_LINE3 :
-Zeg !top10 voor de top10 winnaars te zien in deze server^n
-Zeg !level voor je level te zien en te zien wie er aan het winnen is^n
-Zeg !weapons om de wapen volgorde te zien^n
-Zeg !score voor iedereen zijn score te zien
-:
+RULES_MESSAGE_LINE3 = Zeg !top10 voor de top10 winnaars te zien in deze server^nZeg !level voor je level te zien en te zien wie er aan het winnen is^nZeg !weapons om de wapen volgorde te zien^nZeg !score voor iedereen zijn score te zien^n
 SCORES = Scores
 SLOW_DOWN = Rustin aan! dit is nog altijd de opwarm ronde!
 SPAWNPROTECTED_KILL = Je kill telde niet mee omdat%%n%s%%e spawned in de laaste %%g%i%%e seconden.
@@ -676,11 +642,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode is \rAAN!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Type !rules voor instructies om te spelen en een lijst met^n
-Type !level om je level te zien en te zien wie de leider is^n
-Type !score om een lijst van alle scores te zien in je console^n
-:
+WELCOME_MESSAGE_LINE8 = Type !rules voor instructies om te spelen en een lijst met^nType !level om je level te zien en te zien wie de leider is^nType !score om een lijst van alle scores te zien in je console^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -817,12 +779,7 @@ RULES_CONSOLE_LINE16 = Tape !top10 pour voir le top 10 des gagnants sur le serve
 RULES_CONSOLE_LINE17 = Tape !restart pour revenir au niveau 1.
 RULES_MESSAGE_LINE1 = Les regles du jeu et toutes les commandes du chat sont maintenant listes dans ta console
 RULES_MESSAGE_LINE2 = Quelques commandes utiles:
-RULES_MESSAGE_LINE3 :
-Tape !top10 pour voir le Top 10 des joueurs sur ce serveur^n
-Tape !level pour voir ton niveau actuel et qui est en train de gagner^n
-Tape !weapons pour voir l'ordre des armes^n
-Tape !score pour les scores de toutes les joueurs
-:
+RULES_MESSAGE_LINE3 = Tape !top10 pour voir le Top 10 des joueurs sur ce serveur^nTape !level pour voir ton niveau actuel et qui est en train de gagner^nTape !weapons pour voir l'ordre des armes^nTape !score pour les scores de toutes les joueurs
 SCORES = Scores
 SLOW_DOWN = Hop ! Un petit echauffement avant de commencer !
 SPAWNPROTECTED_KILL = Ton frag ne compte pas car %%n%s%%e a ete ressucite dans les dernieres %%g%i%%e secondes
@@ -858,11 +815,7 @@ WELCOME_MESSAGE_LINE4 = Le mode Knife Elite est \rACTIF !\w
 WELCOME_MESSAGE_LINE5 = Le mode Deathmatch est \rACTIF !\w
 WELCOME_MESSAGE_LINE6 = Le mode par equipe (Teamplay) est \rACTIF !\w
 WELCOME_MESSAGE_LINE7 = Il y a \y%i\w niveau a passer !
-WELCOME_MESSAGE_LINE8 :
-Tape !rules pour obtenir les instructions sur comment jouer et une liste des commandes^n
-Tape !level pour connaitre ton level actuel et qui est le meneur^n
-Tape !score pour afficher la liste des scores de tous les joueurs et des gagnants dans ta console^n
-:
+WELCOME_MESSAGE_LINE8 = Tape !rules pour obtenir les instructions sur comment jouer et une liste des commandes^nTape !level pour connaitre ton level actuel et qui est le meneur^nTape !score pour afficher la liste des scores de tous les joueurs et des gagnants dans ta console^n
 WIN_MOTD_LINE1 = %s gagne !
 WIN_MOTD_LINE2 = L'equipe des %s
 WIN_MOTD_LINE3 = a gagne !
@@ -1000,12 +953,7 @@ RULES_CONSOLE_LINE16 = Say !top10 命令查看服务器前 10 名玩家成绩.
 RULES_CONSOLE_LINE17 = Say !restart 命令重置你的成绩,返回到原始级别 1.
 RULES_MESSAGE_LINE1 = 游戏规则和玩家可用命令
 RULES_MESSAGE_LINE2 = 玩家命令:
-RULES_MESSAGE_LINE3 :
-Say !top10 命令查看服务器前 10 名玩家成绩^n
-Say !level 命令查看你的当前级别信息及领先者信息^n
-Say !weapons 命令查看你的当前武器级别^n
-Say !score 命令查看所有玩家当前成绩
-:
+RULES_MESSAGE_LINE3 = Say !top10 命令查看服务器前 10 名玩家成绩^nSay !level 命令查看你的当前级别信息及领先者信息^nSay !weapons 命令查看你的当前武器级别^nSay !score 命令查看所有玩家当前成绩
 SCORES = 成绩
 SLOW_DOWN = 别着急! 现在是热身时间!
 SPAWNPROTECTED_KILL = 你当前的杀人成绩将被忽略,因为 %%n%s%%e 在出生后 %%g%i%%e 秒内被你杀死.
@@ -1041,11 +989,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = 死亡模式 \开启!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-say !rules 命令查看游戏规则和玩家可用命令^n
-say !level 命令查看你的当前级别信息及领先者信息^n
-say !score 命令查看所有玩家当前成绩^n
-:
+WELCOME_MESSAGE_LINE8 = say !rules 命令查看游戏规则和玩家可用命令^nsay !level 命令查看你的当前级别信息及领先者信息^nsay !score 命令查看所有玩家当前成绩^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -1183,12 +1127,7 @@ RULES_CONSOLE_LINE16 = Say !top10 para ver os 10 melhore jogadores no servidor.
 RULES_CONSOLE_LINE17 = Say !restart para voltar ao nivel 1.
 RULES_MESSAGE_LINE1 = As regras do jogo e todos os comandos say estao listados no sey console
 RULES_MESSAGE_LINE2 = Alguns comandos say uteis:
-RULES_MESSAGE_LINE3 :
-Say !top10 para ver os dez melhores jogadores no servidor^n
-Say !level para ver seu nivel atual e quem estah ganhando^n
-Say !weapons para ver a ordem das armas^n
-Say !score para ver os scores
-:
+RULES_MESSAGE_LINE3 = Say !top10 para ver os dez melhores jogadores no servidor^nSay !level para ver seu nivel atual e quem estah ganhando^nSay !weapons para ver a ordem das armas^nSay !score para ver os scores
 SCORES = Scores
 SLOW_DOWN = Alcame-se! Este ainda eh o round de aquecimento!
 SPAWNPROTECTED_KILL = Esta morte nao contou porque %%n%s%%e entrou nos ultimos %%g%i%%e segundos
@@ -1224,11 +1163,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode estah \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Modo Deathmatch estah \rENABLED!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode estah \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Digite !rules para instrucoes de como jogar e uma lista de comandos^n
-Digite !level para ver seu posto e quem esta liderando^n
-Digite !score para ver uma lista de todos os jogadores e vitoriasa no seu console^n
-:
+WELCOME_MESSAGE_LINE8 = Digite !rules para instrucoes de como jogar e uma lista de comandos^nDigite !level para ver seu posto e quem esta liderando^nDigite !score para ver uma lista de todos os jogadores e vitoriasa no seu console^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -1365,12 +1300,7 @@ RULES_CONSOLE_LINE16 = Escribe !top10 para ver el ranking del server
 RULES_CONSOLE_LINE17 = Escribe !restart para regresar al nivel 1
 RULES_MESSAGE_LINE1 = Las reglas del juego y los comandos de chat estan listados en tu consola
 RULES_MESSAGE_LINE2 = Algunos comandos utiles de chat:
-RULES_MESSAGE_LINE3 :
-Escribe !top10 para ver el ranking del server^n
-Escribe !level para ver tus estadisticas^n
-Escribe !weapons para ver el orden de las armas^n
-Escribe !score para ver tu nivel y el de todos los jugadores
-:
+RULES_MESSAGE_LINE3 = Escribe !top10 para ver el ranking del server^nEscribe !level para ver tus estadisticas^nEscribe !weapons para ver el orden de las armas^nEscribe !score para ver tu nivel y el de todos los jugadores
 SCORE_CAPS = PUNTAJE
 SCORES = Niveles
 SLOW_DOWN = Tranquilo! Esta solo es la ronda de calentamiento!
@@ -1407,11 +1337,7 @@ WELCOME_MESSAGE_LINE4 = Modo Knife Elite \rACTIVADO!\w
 WELCOME_MESSAGE_LINE5 = Modo Deathmatch \rACTIVADO!\w
 WELCOME_MESSAGE_LINE6 = Modo Teamplay \rACTIVADO!\w
 WELCOME_MESSAGE_LINE7 = Hay \y%i\w niveles en este juego!
-WELCOME_MESSAGE_LINE8 :
-Escribe !rules para ver instrucciones del juego y una lista de comandos^n
-Escribe !level para ver tus estadisticas^n
-Escribe !score para ver tu nivel y el de todos los jugadores^n
-:
+WELCOME_MESSAGE_LINE8 = Escribe !rules para ver instrucciones del juego y una lista de comandos^nEscribe !level para ver tus estadisticas^nEscribe !score para ver tu nivel y el de todos los jugadores^n
 WIN_MOTD_LINE1 = %s es el ganador!
 WIN_MOTD_LINE2 = el equipo %s
 WIN_MOTD_LINE3 = es el ganador!
@@ -1546,12 +1472,7 @@ RULES_CONSOLE_LINE16 = Skriv !top10 for att se topp 10 pa denna server.
 RULES_CONSOLE_LINE17 = Skriv !restart for att starta om pa niva 1.
 RULES_MESSAGE_LINE1 = Spelregler och alla kommandon finns nu i din console
 RULES_MESSAGE_LINE2 = Nagra anvandbara kommandon:
-RULES_MESSAGE_LINE3 :
-Skriv !top10 for att se topp 10 pa denna server^n
-Skriv !level for att se din nuvarande niva och vem som vinner^n
-Skriv !weapons for att se forbrukningen av vapen^n
-Skriv !score for att se spelar resultat
-:
+RULES_MESSAGE_LINE3 = Skriv !top10 for att se topp 10 pa denna server^nSkriv !level for att se din nuvarande niva och vem som vinner^nSkriv !weapons for att se forbrukningen av vapen^nSkriv !score for att se spelar resultat
 SCORES = Resultat
 SLOW_DOWN = Ta't lugnt! Det ar fortfarande uppvarmning!
 SPAWNPROTECTED_KILL = Dina kills raknades inte pga att %%n%s%%e spawnade under de sista %%g%i%%e sekunderna
@@ -1587,11 +1508,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mod ar \rAKTIVERAT!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Skriv !rules i consolen for instruktioner av hur du spelar och en lista med kommandon^n
-Skriv !level i consolen for att se info om din niva och vem som leder^n
-Skriv !score i consolen for att se alla spelares resultat och vinster^n
-:
+WELCOME_MESSAGE_LINE8 = Skriv !rules i consolen for instruktioner av hur du spelar och en lista med kommandon^nSkriv !level i consolen for att se info om din niva och vem som leder^nSkriv !score i consolen for att se alla spelares resultat och vinster^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -1728,12 +1645,7 @@ RULES_CONSOLE_LINE16 = Kirjoitamalla !top10 n'a'et servun top-10 voittajaa.
 RULES_CONSOLE_LINE17 = Kirjoita !restart resetoidaksesi levelille 1.
 RULES_MESSAGE_LINE1 = Pelin s'a'a'nn'o't ja komennot n'a'kyv'a't nyt konsolissa.
 RULES_MESSAGE_LINE2 = Pari hy'o'dyllist'a' komentoa:
-RULES_MESSAGE_LINE3 :
-Kirjoitamalla !top10 n'a'et servun top-10 voittajaa^n
-Kirjoittamalla !level n'a'et tasosi ja johtajan^n
-Kirjoitamalla !weapons n'a'et aseiden j'a'rjestyksen^n
-Kirjoitamalla !score n'a'et pistetilastot
-:
+RULES_MESSAGE_LINE3 = Kirjoitamalla !top10 n'a'et servun top-10 voittajaa^nKirjoittamalla !level n'a'et tasosi ja johtajan^nKirjoitamalla !weapons n'a'et aseiden j'a'rjestyksen^nKirjoitamalla !score n'a'et pistetilastot
 SCORES = Pisteet
 SLOW_DOWN = Hidasta v'a'h'a'n! T'a'm'a' on viel'a' l'a'mmittelykierros!
 SPAWNPROTECTED_KILL = Tappoasi ei laskettu koska %%n%s%%e ilmesty %%g%i%%e sekunttia sitten
@@ -1769,11 +1681,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode on \rP'A'LL'A'!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Kirjoittamalla !rules n'a'et pelin s'a'a'nn'o't ja komennot^n
-Kirjoittamalla !level n'a'et tasosi ja johtajan^n
-Kirjoitamalla !score n'a'et pistetilastot voittajista ja h'a'vij'a'jist'a'^n
-:
+WELCOME_MESSAGE_LINE8 = Kirjoittamalla !rules n'a'et pelin s'a'a'nn'o't ja komennot^nKirjoittamalla !level n'a'et tasosi ja johtajan^nKirjoitamalla !score n'a'et pistetilastot voittajista ja h'a'vij'a'jist'a'^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -1911,12 +1819,7 @@ RULES_CONSOLE_LINE16 = Tasteaza !top10 pentru a vedea topul primilor 10 jucatori
 RULES_CONSOLE_LINE17 = Tasteaza !restart pentru a reveni la nivelul 1.
 RULES_MESSAGE_LINE1 = Regulile jocului si toate comenzile sunt aratate in consola
 RULES_MESSAGE_LINE2 = Cateva comenzi folosite:
-RULES_MESSAGE_LINE3 :
-Tasteaza !top10 pentru a vedea topul primilor 10 jucatori de pe server.
-Tasteaza !level pentru a vedea nivelul tau current si cine este cel mai avansat nivel
-Tasteaza !weapons pentru a vedea armele in ordine.
-Tasteaza !score pentru a vedea scorul jucatorilor
-:
+RULES_MESSAGE_LINE3 = Tasteaza !top10 pentru a vedea topul primilor 10 jucatori de pe server.^nTasteaza !level pentru a vedea nivelul tau current si cine este cel mai avansat nivel^nTasteaza !weapons pentru a vedea armele in ordine.^nTasteaza !score pentru a vedea scorul jucatorilor^n
 SCORES = Scor
 SLOW_DOWN = Relaxeaza-tea-te! E runda de incalzire!
 SPAWNPROTECTED_KILL = Fragul tau nu a fost socotit pentru ca %%n%s%%e a aparut in %%g%i%%e secunde
@@ -1952,11 +1855,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode este \rACTIVAT!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Tasteaza !rules pentru instructiuni, cum sa joci si o lista de comenzi 
-Tasteaza !level pentru a sti ce nivel esti si cine e cel mai avansat nivel
-Tasteaza !score pentru a primi o lista a tuturor jucatorilor si castigatorilor in consola
-:
+WELCOME_MESSAGE_LINE8 = Tasteaza !rules pentru instructiuni, cum sa joci si o lista de comenzi^nTasteaza !level pentru a sti ce nivel esti si cine e cel mai avansat nivel^nTasteaza !score pentru a primi o lista a tuturor jucatorilor si castigatorilor in consola^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -2094,12 +1993,7 @@ RULES_CONSOLE_LINE16 = Skriv !top10 for at se de 10 bedste spillere paa serveren
 RULES_CONSOLE_LINE17 = Skriv !restart for at genstarte dig selv fra level 1.
 RULES_MESSAGE_LINE1 = Spilleregler og alle kommandoer er nu oplistet i din consol.
 RULES_MESSAGE_LINE2 = Her er nogle anvendelige say kommandoer:
-RULES_MESSAGE_LINE3 :
-Skriv !top10 for at se de 10 bedste spillere paa serveren^n
-Skriv !level for at se hvilket niveau du befinder dig paa og hvem der ser ud til at vinde runden^n
-Skriv !weapons for at se hvilken raekkefQlge du vil modtage nye vaaben ^n
-Skriv !score for at se alle spilleres nuvaerende score
-:
+RULES_MESSAGE_LINE3 = Skriv !top10 for at se de 10 bedste spillere paa serveren^nSkriv !level for at se hvilket niveau du befinder dig paa og hvem der ser ud til at vinde runden^nSkriv !weapons for at se hvilken raekkefQlge du vil modtage nye vaaben ^nSkriv !score for at se alle spilleres nuvaerende score^n
 SCORES = Scores
 SLOW_DOWN = Rolig nu! Dette er kun opvarmningsrunden!
 SPAWNPROTECTED_KILL = Dit drab talte ikke med fordi %%n%s%%e spawnede i det sidste %%g%i%%e sekund
@@ -2135,11 +2029,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode er \rENABLED!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Skriv !rules for at faa instruction om hvordan spillet virker samt en liste over kommandoer som du kan skrive^n
-Skriv !level for at se hvilket niveau du befinder dig paa og hvem der ser ud til at vinde i Qjeblikket^n
-Skriv !score for at se alle spilleres nuvaerende score i din consol^n
-:
+WELCOME_MESSAGE_LINE8 = Skriv !rules for at faa instruction om hvordan spillet virker samt en liste over kommandoer som du kan skrive^nSkriv !level for at se hvilket niveau du befinder dig paa og hvem der ser ud til at vinde i Qjeblikket^nSkriv !score for at se alle spilleres nuvaerende score i din consol^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -2277,12 +2167,7 @@ RULES_CONSOLE_LINE16 = Ïèøè !top10 ÷òîáû ïîñìîòðåòü 10 ëó÷
 RULES_CONSOLE_LINE17 = Ïèøè !restart ÷òîáû ñáðîñèòü óðîâåíü äî íà÷àëüíîãî.
 RULES_MESSAGE_LINE1 = Ïðàâèëà èãðû è âñå êîììàíäû òåïåðü ïðèâåäåíû â êîíñîëè
 RULES_MESSAGE_LINE2 = Íåêîòîðûå ïîëåçíûå êîììàíäû:
-RULES_MESSAGE_LINE3 :
-Ïèøè !top10 ÷òîáû ïîñìîòðåòü 10 ëó÷øèõ èãðîêîâ ýòîãî ñåðâåðà^n
-Ïèøè !level ÷òîáû ïîñìîòðåòü ñâîé óðîâåíü è êòî ïîáåæäàåò^n
-Ïèøè !weapons ÷òîáû ïîñìîòðåòü ïîðÿäîê ïîÿâëåíèÿ îðóæèÿ^n
-Ïèøè !score ÷òîáû ïîñìîòðåòü î÷êè äðóãèõ èãðîêîâ^n
-:
+RULES_MESSAGE_LINE3 = Ïèøè !top10 ÷òîáû ïîñìîòðåòü 10 ëó÷øèõ èãðîêîâ ýòîãî ñåðâåðà^nÏèøè !level ÷òîáû ïîñìîòðåòü ñâîé óðîâåíü è êòî ïîáåæäàåò^nÏèøè !weapons ÷òîáû ïîñìîòðåòü ïîðÿäîê ïîÿâëåíèÿ îðóæèÿ^nÏèøè !score ÷òîáû ïîñìîòðåòü î÷êè äðóãèõ èãðîêîâ^n
 SCORES = Î÷êè
 SLOW_DOWN = Åé!!! Ïðèòîðìîçè!!! Ýòî âñåãî ëèøü ðàçîãðåâî÷íûé ðàóíä!!!
 SPAWNPROTECTED_KILL = Óáèéñòâî íå çàñ÷èòûâàåòñÿ ïîòîìó, ÷òî %%n%s%%e ïîÿâèëñÿ â ïîñëåäíèå %%g%i%%e ñåêóíäû
@@ -2318,11 +2203,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode \rÂÊËÞ×¨Í!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rENABLED!\w
 WELCOME_MESSAGE_LINE7 = There are \y%i\w levels this round!
-WELCOME_MESSAGE_LINE8 :
-Ïèøè !rules äëÿ äàëüíåéøèõ èíñòðóêöèè ïî èãðå è ñïèñêà êîìàíä^n
-Ïèøè !level ÷òîá óçíàòü íà êàêîì òû óðîâíå è êòî ëèäèðóåò^n
-Ïèøè !score ÷òîá ïîëó÷èòü ñïèñîê î÷êîâ è ïîáåä âñåõ èãðîêîâ â êîíñîëè^n
-:
+WELCOME_MESSAGE_LINE8 = Ïèøè !rules äëÿ äàëüíåéøèõ èíñòðóêöèè ïî èãðå è ñïèñêà êîìàíä^nÏèøè !level ÷òîá óçíàòü íà êàêîì òû óðîâíå è êòî ëèäèðóåò^nÏèøè !score ÷òîá ïîëó÷èòü ñïèñîê î÷êîâ è ïîáåä âñåõ èãðîêîâ â êîíñîëè^n
 WIN_MOTD_LINE1 = %s won!
 WIN_MOTD_LINE2 = the %s team
 WIN_MOTD_LINE3 = is the winner!
@@ -2460,12 +2341,7 @@ RULES_CONSOLE_LINE16 = Wpisz w say !top10 by zobaczyc najlepszych 10 graczy na s
 RULES_CONSOLE_LINE17 = Wpisz w say !restart by zresetowac poziom do pierwszego.
 RULES_MESSAGE_LINE1 = Zasady i komendy say sa wyswietlone aktualnie w konsoli.
 RULES_MESSAGE_LINE2 = Niektore przydatne komendy:
-RULES_MESSAGE_LINE3 :
-Wpisz w say !top10 by zobaczyc najlepszych 10 graczy na serwerze^n
-Wpisz w say !level by zobaczyc aktualny poziom i sprawdzic kto wygrywa^n
-Wpisz w say !weapons by zobaczyc kolejnosc broni^n
-Wpisz w say !score by zobaczyc aktualna punktacje graczy
-:
+RULES_MESSAGE_LINE3 = Wpisz w say !top10 by zobaczyc najlepszych 10 graczy na serwerze^nWpisz w say !level by zobaczyc aktualny poziom i sprawdzic kto wygrywa^nWpisz w say !weapons by zobaczyc kolejnosc broni^nWpisz w say !score by zobaczyc aktualna punktacje graczy
 SCORES = Punktacja
 SLOW_DOWN = Zwolnij! To jest ciagle rozgrzewka!
 SPAWNPROTECTED_KILL = Twoje zabojstwo nie zostalo zaliczone poniewaz %%n%s%%e odrodzil sie w ciaglu ostatnich %%g%i%%e sekund
@@ -2501,11 +2377,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode jest \rWLACZONY!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode jest \rWLACZONY!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode jest \rWLACZONY!\w
 WELCOME_MESSAGE_LINE7 = Jest \y%i\w leveli na tej mapie
-WELCOME_MESSAGE_LINE8 :
-Wpisz !rules by dostac wskazowki jak grac i liste przydatnych komend^n
-Wpisz !level by zobaczyc swoj poziom i sprawdzic kto wygrywa^n
-Wpisz !score by otrzymac punktacje graczy i wygrane w konsoli^n
-:
+WELCOME_MESSAGE_LINE8 = Wpisz !rules by dostac wskazowki jak grac i liste przydatnych komend^nWpisz !level by zobaczyc swoj poziom i sprawdzic kto wygrywa^nWpisz !score by otrzymac punktacje graczy i wygrane w konsoli^n
 WIN_MOTD_LINE1 = %s wygral!
 WIN_MOTD_LINE2 = %s TEAM
 WIN_MOTD_LINE3 = wygrywa!
@@ -2642,12 +2514,7 @@ RULES_CONSOLE_LINE16 = Say !top10 da vidis 10 naj pobednika na serveru.
 RULES_CONSOLE_LINE17 = Say !restart da se restartujes na nivo 1.
 RULES_MESSAGE_LINE1 = Pravila igre i say komande su ti izlistane u konzoli
 RULES_MESSAGE_LINE2 = Neke korisne say komande:
-RULES_MESSAGE_LINE3 :
-Say !top10 da vidis 10 naj pobednika na serveru^n
-Say !level da vidis svoj trenutni nivo i ko vodi^n
-Say !weapons da vidis redosled oruzja(nivoa)^n
-Say !score da vidis rezultate svih igraca^n
-:
+RULES_MESSAGE_LINE3 = Say !top10 da vidis 10 naj pobednika na serveru^nSay !level da vidis svoj trenutni nivo i ko vodi^nSay !weapons da vidis redosled oruzja(nivoa)^nSay !score da vidis rezultate svih igraca^n
 SCORE_CAPS = REZULTAT
 SCORES = Rezultati
 SLOW_DOWN = Uspori! Ovo je i dalje warmup runda!
@@ -2684,11 +2551,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode is \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode je \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode is \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE7 = Ima \y%i\w nivoa u ovoj rundi!
-WELCOME_MESSAGE_LINE8 :
-Say !rules za instrukcije kako se igra GunGame i spisak komandi^n
-Say !level da vidis svoj trenutni nivo i ko vodi^n
-Say !score da u konzoli dobijes rezultate svih igraca i pobeda^n
-:
+WELCOME_MESSAGE_LINE8 = Say !rules za instrukcije kako se igra GunGame i spisak komandi^nSay !level da vidis svoj trenutni nivo i ko vodi^nSay !score da u konzoli dobijes rezultate svih igraca i pobeda^n
 WIN_MOTD_LINE1 = %s je pobednik!
 WIN_MOTD_LINE2 = %s tim
 WIN_MOTD_LINE3 = je pobednik!
@@ -2826,12 +2689,7 @@ RULES_CONSOLE_LINE16 = Raksti !top10 lai redzētu top 10 spēlētajus šajā ser
 RULES_CONSOLE_LINE17 = Raksti !restart lai atgrieztu sevi uz līmeni 1.
 RULES_MESSAGE_LINE1 = Spēles noteikumi un visas say komandas ir tagad uzskaitītas tavā konsolē
 RULES_MESSAGE_LINE2 = Dažas noderīgas say komandas:
-RULES_MESSAGE_LINE3 :
-Raksti !top10 lai redzētu top 10 spēlētajus šajā serverī^n
-Raksti !level lai redzētu tavu pašreizējo līmeni un līderi^n
-Raksti !weapons lai redzētu ieroču kārtību^n
-Raksti !score lai redzētu spēlētāju punktu skaitu
-:
+RULES_MESSAGE_LINE3 = Raksti !top10 lai redzētu top 10 spēlētajus šajā serverī^nRaksti !level lai redzētu tavu pašreizējo līmeni un līderi^nRaksti !weapons lai redzētu ieroču kārtību^nRaksti !score lai redzētu spēlētāju punktu skaitu
 SCORE_CAPS = PUNKTU SKAITS
 SCORES = Punktu skaits
 SLOW_DOWN = Piebremzē! Šis ir tikai iesildīšanās raunds!
@@ -2868,11 +2726,7 @@ WELCOME_MESSAGE_LINE4 = Nāvesmačs Mods ir \rIeslēgts!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mods ir \rIeslēgts!\w
 WELCOME_MESSAGE_LINE6 = Komandas Mods ir \rIeslēgts!\w
 WELCOME_MESSAGE_LINE7 = Šeit ir \y%i\w līmeņi raundā!
-WELCOME_MESSAGE_LINE8 :
-Raksti !rules instrukcija kā spēlēt un komandu saraksts ^n
-Raksti !level lai iegūtu tava līmeņa un līdera info^n
-Raksti !score lai iegūtu sarakstu ar spēlētaju punktiem un uzvarām jūsu konsolē^n
-:
+WELCOME_MESSAGE_LINE8 = Raksti !rules instrukcija kā spēlēt un komandu saraksts^nRaksti !level lai iegūtu tava līmeņa un līdera info^nRaksti !score lai iegūtu sarakstu ar spēlētaju punktiem un uzvarām jūsu konsolē^n
 WIN_MOTD_LINE1 = %s vinnēja!
 WIN_MOTD_LINE2 = %s komanda
 WIN_MOTD_LINE3 = ir uzvarētaji!
@@ -3010,12 +2864,7 @@ RULES_CONSOLE_LINE16 = Say !top10 за да видиш 10-те най добри
 RULES_CONSOLE_LINE17 = Say !restart за да се върнеш на 1-во ниво.
 RULES_MESSAGE_LINE1 = Правилата на играта и всички команди са изписани в конзолата ти.
 RULES_MESSAGE_LINE2 = Някои полезни say команди:
-RULES_MESSAGE_LINE3 :
-Напиши !top10 за да видиш 10-те най добри в сървъра^n
-Напиши !level за да видиш текущото си ниво и кой води^n
-Напиши !weapons за да видиш реда на оръжията^n
-Напиши !score за да видиш резултатът на всички играчи
-:
+RULES_MESSAGE_LINE3 = Напиши !top10 за да видиш 10-те най добри в сървъра^nНапиши !level за да видиш текущото си ниво и кой води^nНапиши !weapons за да видиш реда на оръжията^nНапиши !score за да видиш резултатът на всички играчи
 SCORE_CAPS = РЕЗУЛТАТ
 SCORES = Резултати
 SLOW_DOWN = Опаа,по-полека де!Още сме на загряващото ниво!
@@ -3052,11 +2901,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite Mode е \rВКЛЮЧЕН!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Mode е \rВКЛЮЧЕН!\w
 WELCOME_MESSAGE_LINE6 = Teamplay Mode е \rВКЛЮЧЕН!\w
 WELCOME_MESSAGE_LINE7 = Този рунд има \y%i\w нива!
-WELCOME_MESSAGE_LINE8 :
-Напиши !rules за инструкции как се играе и лист със командите^n
-Напиши !level за да видиш нивото си и кой е лидерът^n
-Напиши !score за да видиш резултатът на всички играчи^n
-:
+WELCOME_MESSAGE_LINE8 = Напиши !rules за инструкции как се играе и лист със командите^nНапиши !level за да видиш нивото си и кой е лидерът^nНапиши !score за да видиш резултатът на всички играчи^n
 WIN_MOTD_LINE1 = %s ПОБЕДИ!
 WIN_MOTD_LINE2 = %s отборът
 WIN_MOTD_LINE3 = е победител!
@@ -3193,12 +3038,7 @@ RULES_CONSOLE_LINE16 = Say !top10 da vidis 10 naj pobjednika na serveru.
 RULES_CONSOLE_LINE17 = Say !restart da se restartas na 1. nivo.
 RULES_MESSAGE_LINE1 = Pravila igre i say komande su ti izlistane u konzoli.
 RULES_MESSAGE_LINE2 = Neke korisne say komande:
-RULES_MESSAGE_LINE3 :
-Say !top10 da vidis 10 naj pobjednika na serveru^n
-Say !level da vidis svoj trenutni nivo i tko vodi^n
-Say !weapons da vidis redoslijed oruzja(nivoa)^n
-Say !score da vidis rezultate svih igraca^n
-:
+RULES_MESSAGE_LINE3 = Say !top10 da vidis 10 naj pobjednika na serveru^nSay !level da vidis svoj trenutni nivo i tko vodi^nSay !weapons da vidis redoslijed oruzja(nivoa)^nSay !score da vidis rezultate svih igraca^n
 SCORE_CAPS = REZULTAT
 SCORES = Rezultati
 SLOW_DOWN = Uspori! Ovo je i dalje warmup runda!
@@ -3236,11 +3076,7 @@ WELCOME_MESSAGE_LINE4 = Knife Elite mode is \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch mode je \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE6 = Teamplay mode is \rUKLJUCEN!\w
 WELCOME_MESSAGE_LINE7 = Ima \y%i\w nivoa u ovoj rundi!
-WELCOME_MESSAGE_LINE8 :
-Say !rules za instrukcije kako se igra GunGame i spisak komandi^n
-Say !level da vidis svoj trenutni nivo i tko vodi^n
-Say !score da u konzoli dobijes rezultate svih igraca i pobjeda^n
-:
+WELCOME_MESSAGE_LINE8 = Say !rules za instrukcije kako se igra GunGame i spisak komandi^nSay !level da vidis svoj trenutni nivo i tko vodi^nSay !score da u konzoli dobijes rezultate svih igraca i pobjeda^n
 WIN_MOTD_LINE1 = %s je pobjednik!
 WIN_MOTD_LINE2 = %s tim
 WIN_MOTD_LINE3 = je pobjednik!
@@ -3375,12 +3211,7 @@ RULES_CONSOLE_LINE16 = Say !top10 perziureti Top10 laimetoju sarasa.
 RULES_CONSOLE_LINE17 = Say !restart nuzeminti lygi iki 1.
 RULES_MESSAGE_LINE1 = Zaidimo taisykles ir visos komandos yra surasytos jusu konsoleje
 RULES_MESSAGE_LINE2 = Keletas naudingu komandu:
-RULES_MESSAGE_LINE3 :
-Rasykite !top10 pamatyti Top10 serverio zaideju^n
-Rasykite !level perziureti savo lygi ir kas laimi^n
-Rasykite !weapons perziureti ginklu isdestyma^n
-Rasykite !score perziureti zaidejo taskus
-:
+RULES_MESSAGE_LINE3 = Rasykite !top10 pamatyti Top10 serverio zaideju^nRasykite !level perziureti savo lygi ir kas laimi^nRasykite !weapons perziureti ginklu isdestyma^nRasykite !score perziureti zaidejo taskus
 SCORES = Taskai
 SLOW_DOWN = Ramiau! Tai tik apsilimo roundas!
 SPAWNPROTECTED_KILL = Jusu taskai neuzskaityti kadangi %%n%s%%e zaidejas atsirado tik pries %%g%i%%e sekundes
@@ -3416,11 +3247,7 @@ WELCOME_MESSAGE_LINE4 = Peilio Elite Rezimas yra \rIJUNGTAS!\w
 WELCOME_MESSAGE_LINE5 = Deathmatch Rezimas yra \rIJUNGTAS!\w
 WELCOME_MESSAGE_LINE6 = Komandinis rezimas yra \rIJUNGTAS!\w
 WELCOME_MESSAGE_LINE7 = isviso yra \y%i\w lygiai siame rounde!
-WELCOME_MESSAGE_LINE8 :
-Rasykite !rules gauti instrukcijoms kaip zaisti ir kokios komandos yra^n
-Rasykite !level gauti savo lygio informacija ir kas pirmiauja^n
-Rasykite !score gauti visu zaideju lygius ir taskus^n
-:
+WELCOME_MESSAGE_LINE8 = Rasykite !rules gauti instrukcijoms kaip zaisti ir kokios komandos yra^nRasykite !level gauti savo lygio informacija ir kas pirmiauja^nRasykite !score gauti visu zaideju lygius ir taskus^n
 WIN_MOTD_LINE1 = Laimejo %s!
 WIN_MOTD_LINE2 = komanda %s
 WIN_MOTD_LINE3 = yra laimetojas!
