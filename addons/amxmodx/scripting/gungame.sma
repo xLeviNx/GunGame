@@ -1,3 +1,27 @@
+/*
+To do:
+
+T = needs testing
+X = done
+- = cancelled
+
+[T] show_hudmessage instead of ShowSyncHudMsg
+[T] infinite round via sv_restart
+[T] optimize event_round_restart
+[T] fix leader hud spam on level change
+[T] stop infinite round if no active players in a team
+[T] precache_generic for all sounds since they are used on client side only
+[T] play connect sounds only if game is running so the win sound keeps playing on map change and we can have lower mp_chattime
+[T] bot_quota independent of czero
+[T] small fix in refresh_nade for bots regarding engclient_cmd
+[T] uncache bot_quota pointer since we only use it once
+[T] don't unfreeze bots via bot_stop or other cvars if the cvar has changed in the meantime
+[T] add support for freezing yapb
+v2.17o
+[ ] decrease mp_timelimit while in infinite round and not in warmup
+[ ] 
+*/
+
 /* Uncomment the below define to use SQL stats intead of flat-file stats. */
 
 //#define SQL
@@ -46,7 +70,7 @@
 #include <hamsandwich>
 
 // defines to be left alone
-new const GG_VERSION[] =	"2.13c";
+new const GG_VERSION[] =	"2.17o";
 #define LANG_PLAYER_C		-76 // for gungame_print (arbitrary number)
 #define TNAME_SAVE		pev_noise3 // for blocking game_player_equip and player_weaponstrip
 #define WINSOUNDS_SIZE		(MAX_WINSOUNDS*MAX_WINSOUND_LEN)+1 // for gg_sound_winner
@@ -55,7 +79,7 @@ new const GG_VERSION[] =	"2.13c";
 #define TOP_PLAYERS		10 // for !top10
 #define MAX_WEAPONS		36 // for gg_weapon_order
 #define MAX_WINSOUNDS		12 // for gg_sound_winnner
-#define MAX_WINSOUND_LEN	48 // for gg_sound_winner
+#define MAX_WINSOUND_LEN	128 // for gg_sound_winner
 #define TEMP_SAVES		32 // for gg_save_temp
 #define MAX_WEAPON_ORDERS	10 // for random gg_weapon_order
 #define LEADER_DISPLAY_RATE	10.0 // for gg_leader_display
@@ -83,8 +107,8 @@ new const WEAPON_KNIFE[]	= "weapon_knife";
 new const WEAPON_GLOCK18[]	= "weapon_glock18";
 new const HEGRENADE[]		= "hegrenade";
 new const KNIFE[]			= "knife";
-new const BRASS_BELL_SOUND[]	= "gungame/gg_brass_bell.wav";
-new const KILL_DING_SOUND[]	= "buttons/bell1.wav";
+new const BRASS_BELL_SOUND[]	= "gungame/gg_brass_bell";
+new const KILL_DING_SOUND[]	= "buttons/bell1";
 
 // toggle_gungame
 enum
@@ -133,6 +157,7 @@ enum
 #define TASK_CHECK_JOINCLASS		1500
 #define TASK_AUTOVOTE_RESULT		1600
 #define TASK_GET_TOP_PLAYERS		1700
+#define TASK_INFINITE_ROUND		1800
 
 //**********************************************************************
 // VARIABLE DEFINITIONS
@@ -157,7 +182,7 @@ gg_dm, gg_dm_sp_time, gg_dm_sp_mode, gg_dm_spawn_random, gg_dm_spawn_delay, gg_d
 gg_host_touch_reward, gg_host_rescue_reward, gg_host_kill_reward, gg_dm_countdown, gg_status_display,
 gg_dm_spawn_afterplant, gg_block_objectives, gg_host_kill_penalty, gg_dm_start_random, gg_allow_changeteam,
 gg_teamplay_timeratio, gg_disable_money, gg_kills_botmod, gg_bots_skipnade, gg_bots_knifeable,
-gg_afk_protection, gg_stats_split, gg_top10_ppp;
+gg_afk_protection, gg_stats_split, gg_top10_ppp, gg_dm_infinite_round;
 
 // weapon information
 new maxClip[31] = { -1, 13, -1, 10, 1, 7, -1, 30, 30, 1, 30, 20, 25, 30, 35, 25, 12, 20,
@@ -193,11 +218,11 @@ enum saveData
 new weapons_menu, scores_menu, level_menu, warmup = -1, warmupWeapon[24], voted, won, trailSpr, roundEnded,
 menuText[512], dummy[2], tempSave[TEMP_SAVES][saveData], czero, maxPlayers, mapIteration = 1, cfgDir[32],
 autovoted, autovotes[3], autovote_mode, roundsElapsed, gameCommenced, cycleNum = -1, czbot_hams, mp_friendlyfire,
-winSounds[MAX_WINSOUNDS][MAX_WINSOUND_LEN+1], numWinSounds, currentWinSound, hudSyncWarmup, hudSyncReqKills,
-hudSyncLDisplay, shouldWarmup, ggActive, teamLevel[3], teamLvlWeapon[3][24], teamScore[3], bombMap, hostageMap,
-bombStatus[4], c4planter, Float:spawns[MAX_SPAWNS][9], spawnCount, csdmSpawnCount, hudSyncCountdown,
+winSounds[MAX_WINSOUNDS][MAX_WINSOUND_LEN+1], numWinSounds, currentWinSound,// hudSyncWarmup, hudSyncReqKills,
+shouldWarmup, ggActive, teamLevel[3], teamLvlWeapon[3][24], teamScore[3], bombMap, hostageMap,
+bombStatus[4], c4planter, Float:spawns[MAX_SPAWNS][9], spawnCount, csdmSpawnCount,// hudSyncLDisplay, hudSyncCountdown,
 weaponName[MAX_WEAPONS+1][24], Float:weaponGoal[MAX_WEAPONS+1], weaponNum, initTeamplayStr[32], initTeamplayInt = -1,
-bot_quota, spareName[32], sqlInit, galileoID = -1;
+bot_stop, spareName[32], sqlInit, galileoID = -1;
 
 // stats file stuff
 new sfStatsStruct[statsData], lastStatsMode = -909;
@@ -240,7 +265,7 @@ public plugin_init()
 	register_cvar("gg_version",GG_VERSION,FCVAR_SERVER);
 	set_cvar_string("gg_version",GG_VERSION);
 
-	// mehrsprachige unterstützung (nein, spreche ich nicht Deutsches)
+	// mehrsprachige unterstï¿½tzung (nein, spreche ich nicht Deutsches)
 	register_dictionary("gungame.txt");
 	register_dictionary("common.txt");
 	register_dictionary("adminvote.txt");
@@ -261,12 +286,14 @@ public plugin_init()
 	register_event("CurWeapon","event_curweapon","be","1=1");
 	register_event("AmmoX","event_ammox","be");
 	register_event("30","event_intermission","a");
-	register_event("TextMsg","event_round_restart","a","2=#Game_Commencing","2=#Game_will_restart_in");
+	register_event("TextMsg","event_round_restart","a","2=#Game_Commencing");//,"2=#Game_will_restart_in"
 	register_event("23","event_bomb_detonation","a","1=17","6=-105","7=17"); // planted bomb exploded
+	//register_event("TextMsg", "fwEvTextMsgGameRestart", "a", "2=#Game_will_restart_in")
 	
 	// forwards
 	register_forward(FM_SetModel,"fw_setmodel");
 	register_forward(FM_EmitSound,"fw_emitsound");
+	register_forward(FM_CmdStart, "fwFmCmdStart", 1);
 	
 	// logevents
 	register_logevent("event_bomb_detonation",6,"3=Target_Bombed"); // another bomb exploded event, for security
@@ -374,6 +401,7 @@ public plugin_init()
 	gg_dm_spawn_afterplant = register_cvar("gg_dm_spawn_afterplant","1");
 	gg_dm_corpses = register_cvar("gg_dm_corpses","1");
 	gg_dm_countdown = register_cvar("gg_dm_countdown","2");
+	gg_dm_infinite_round = register_cvar("gg_dm_infinite_round","1");
 	
 	// objective cvars
 	gg_block_objectives = register_cvar("gg_block_objectives","0");
@@ -459,10 +487,10 @@ public plugin_init()
 	maxPlayers = get_maxplayers();
 	
 	// create hud sync objects
-	hudSyncWarmup = CreateHudSyncObj();
-	hudSyncReqKills = CreateHudSyncObj();
-	hudSyncLDisplay = CreateHudSyncObj();
-	hudSyncCountdown = CreateHudSyncObj();
+	//hudSyncWarmup = CreateHudSyncObj();
+	//hudSyncReqKills = CreateHudSyncObj();
+	//hudSyncLDisplay = CreateHudSyncObj();
+	//hudSyncCountdown = CreateHudSyncObj();
 	
 	// remember the mod
 	new modName[7];
@@ -470,8 +498,12 @@ public plugin_init()
 	if(equal(modName,"czero"))
 	{
 		czero = 1;
-		bot_quota = get_cvar_pointer("bot_quota");
 	}
+	
+	bot_stop = get_cvar_pointer("bot_stop");
+	
+	if (!bot_stop)
+		bot_stop = get_cvar_pointer("yb_freeze_bots");
 	
 	// identify this as a bomb map
 	if(fm_find_ent_by_class(maxPlayers,"info_bomb_target") || fm_find_ent_by_class(1,"func_bomb_target"))
@@ -493,6 +525,21 @@ public plugin_init()
 	// map configs take 6.1 seconds to load
 	set_task(6.2,"setup_weapon_order");
 	set_task(6.2,"stats_get_top_players",TASK_GET_TOP_PLAYERS);
+}
+
+public fwFmCmdStart(const iID, const iIDCmd)
+{
+	if (!spawnProtected[iID] || !fm_get_user_godmode(iID))
+		return;
+	
+	if (!(get_uc(iIDCmd, UC_Buttons) & (IN_ATTACK | IN_ATTACK2 | IN_FORWARD | IN_BACK | IN_MOVELEFT | IN_MOVERIGHT | IN_JUMP | IN_DUCK)))
+		return;
+	
+	remove_task(iID + TASK_REMOVE_PROTECTION)
+	spawnProtected[iID] = 0;
+	
+	fm_set_user_godmode(iID,0);
+	fm_set_rendering(iID);
 }
 
 // plugin precache
@@ -532,11 +579,12 @@ public plugin_precache()
 	precache_sound_by_cvar(gg_sound_tiedlead);
 	precache_sound_by_cvar(gg_sound_lostlead);
 
+	new temp[MAX_WINSOUND_LEN+1];
 	get_pcvar_string(gg_sound_winner,dummy,1);
 	if(dummy[0]) // win sounds enabled
 	{
 		// gg_sound_winner might contain multiple sounds
-		new buffer[WINSOUNDS_SIZE], temp[MAX_WINSOUND_LEN+1], pos;
+		new buffer[WINSOUNDS_SIZE], pos;
 		get_pcvar_string(gg_sound_winner,buffer,WINSOUNDS_SIZE-1);
 	
 		while(numWinSounds < MAX_WINSOUNDS)
@@ -569,9 +617,11 @@ public plugin_precache()
 	}
 
 	// some generic, non-changing things
-	precache_sound(BRASS_BELL_SOUND);
-	precache_sound(KILL_DING_SOUND);
-	precache_sound("common/null.wav");
+	formatex(temp, charsmax(temp), "sound/%s.wav", BRASS_BELL_SOUND)
+	precache_generic(temp);
+	formatex(temp, charsmax(temp), "sound/%s.wav", KILL_DING_SOUND)
+	precache_generic(temp);
+	precache_generic("sound/common/null.wav");
 
 	// for the star
 	trailSpr = precache_model("sprites/laserbeam.spr");
@@ -603,6 +653,14 @@ public plugin_end()
 //**********************************************************************
 // FORWARDS
 //**********************************************************************
+
+public client_connect(id)
+{
+	if (numWinSounds < 1 || !gameCommenced || !ggActive || shouldWarmup || warmup >= 0)
+		return;
+	
+	play_sound(id, winSounds[random_num(0, numWinSounds - 1)]);
+}
 
 // client gets a steamid
 public client_authorized(id)
@@ -736,11 +794,14 @@ public client_disconnect(id)
 // someone joins, monitor ham hooks
 public client_putinserver(id)
 {
-	if(czero && !czbot_hams && is_user_bot(id) && get_pcvar_num(bot_quota) > 0)
+	if (!is_user_bot(id))
+		return;
+	
+	if(!czbot_hams && get_cvar_num("bot_quota") > 0)//czero && 
 		set_task(0.1,"czbot_hook_ham",id);
 	
 	// bots don't call joinclass
-	if(is_user_bot(id)) cmd_joinclass(id);
+	cmd_joinclass(id);//if(is_user_bot(id)) 
 }
 
 // delay for private data to initialize --
@@ -752,7 +813,7 @@ public czbot_hook_ham(id)
 	if(czbot_hams || !is_user_connected(id)) return;
 
 	// probably a czero bot
-	if(is_user_bot(id) && get_pcvar_num(bot_quota) > 0)
+	if(is_user_bot(id) && get_cvar_num("bot_quota") > 0)
 	{
 		RegisterHamFromEntity(Ham_Spawn,id,"ham_player_spawn",1);
 		RegisterHamFromEntity(Ham_Killed,id,"ham_player_killed_pre",0);
@@ -936,6 +997,8 @@ public event_new_round()
 	roundEnded = 0;
 	roundsElapsed++;
 	
+	remove_task(TASK_INFINITE_ROUND)
+	
 	c4planter = 0;
 	bombStatus[3] = BOMB_PICKEDUP;
 
@@ -1049,34 +1112,42 @@ public event_round_restart()
 	if(now == lastThis) return;
 	lastThis = now;
 
-	static message[17];
+/*	static message[17];
 	read_data(2,message,16);
 
 	if(equal(message,"#Game_Commencing"))
+	{*/
+	// don't reset values on game commencing,
+	// if it has already commenced once
+	if(gameCommenced) return;
+	gameCommenced = 1;
+	
+	// start warmup
+	if(ggActive)
 	{
-		// don't reset values on game commencing,
-		// if it has already commenced once
-		if(gameCommenced) return;
-		gameCommenced = 1;
-		
-		// start warmup
-		if(ggActive)
-		{
-			clear_all_values();
+		clear_all_values();
 
-			shouldWarmup = 0;
-			start_warmup();
-			
-			return;
-		}
+		shouldWarmup = 0;
+		start_warmup();
+		
+		return;
 	}
-	/*else if(ggActive) // #Game_will_restart_in
+/*	}
+	else if(ggActive) // #Game_will_restart_in
 	{
 		read_data(3,message,4); // time to restart in
 		new Float:time = floatstr(message) - 0.1;
 		set_task((time < 0.1) ? 0.1 : time,"clear_all_values");
 	}*/
 }
+/*
+public fwEvTextMsgGameRestart()
+{
+	if (!task_exists(TASK_INFINITE_ROUND))
+		return PLUGIN_CONTINUE;
+	
+	return PLUGIN_HANDLED;
+}*/
 
 // a delayed clearing
 public clear_all_values()
@@ -1387,15 +1458,73 @@ public message_ammopickup(msg_id,msg_dest,msg_entity)
 // block dropped the bomb message if we disabled objectives
 public message_textmsg(msg_id,msg_dest,msg_entity)
 {
-	if(!bombMap || !ggActive || !get_pcvar_num(gg_block_objectives))
+	if(!ggActive)
 		return PLUGIN_CONTINUE;
-
-	static message[16];
-	get_msg_arg_string(2,message,15);
-
-	if(equal(message,"#Game_bomb_drop"))
-		return PLUGIN_HANDLED;
-
+	
+	new szText[25];
+	get_msg_arg_string(2, szText, charsmax(szText))
+	
+	//client_print(0, print_chat, "[message_textmsg] %s.", szText)
+	
+	// Round ended
+	if (equali(szText, "#Round_Draw") || equali(szText, "#Game_Commencing"))
+	{
+		remove_task(TASK_INFINITE_ROUND)
+		
+		roundEnded = 1;
+		
+		return PLUGIN_CONTINUE;
+	}
+	else if (equali(szText, "#Game_will_restart_in"))
+	{
+/*		client_print(0, print_chat, "[message_textmsg] get_msg_arg_int 1 3 4: %d %d %d. get_msg_arg_float 1 3 4: %f %f %f.", get_msg_arg_int(1), get_msg_arg_int(3), get_msg_arg_int(4), get_msg_arg_float(1), get_msg_arg_float(3), get_msg_arg_float(4))
+		
+		get_msg_arg_string(1, szText, charsmax(szText))
+		
+		client_print(0, print_chat, "[message_textmsg] get_msg_arg_string 1: %s.", szText)
+		
+		get_msg_arg_string(4, szText, charsmax(szText))
+		
+		client_print(0, print_chat, "[message_textmsg] get_msg_arg_string 4: %s.", szText)
+		
+		client_print(0, print_chat, "[message_textmsg] get_msg_arg_string 3: %s.", szText)
+		*/
+		get_msg_arg_string(3, szText, 2)
+		
+		if (szText[0] != '6' || szText[1] != '0')
+		{
+			remove_task(TASK_INFINITE_ROUND)
+			
+			roundEnded = 1;
+			
+			return PLUGIN_CONTINUE;
+		}
+		else
+			return PLUGIN_HANDLED;
+	}
+	else if (get_pcvar_num(gg_block_objectives))
+	{
+		if(bombMap && equal(szText,"#Game_bomb_drop"))
+			return PLUGIN_HANDLED;
+		
+		if (!get_pcvar_num(gg_dm) || !get_pcvar_num(gg_dm_infinite_round)
+		|| !equali(szText, "#Terrorists_Win") && !equali(szText, "#CTs_Win")
+		&& !equali(szText, "#Target_Saved") && !equali(szText, "#Hostages_Not_Rescued")
+		&& !equali(szText, "#Target_Bombed") && !equali(szText, "#All_Hostages_Rescued")
+		&& !equali(szText, "#VIP_Assassinated") && !equali(szText, "#VIP_Not_Escaped") && !equali(szText, "#VIP_Escaped")
+		&& !equali(szText, "#Terrorists_Not_Escaped") && !equali(szText, "#Terrorists_Escaped"))
+			return PLUGIN_CONTINUE;
+		
+		//client_print(0, print_chat, "[message_textmsg] Starting infinite round. roundEnded: %d.", roundEnded)
+		
+		//roundEnded = 0;
+		
+		remove_task(TASK_INFINITE_ROUND)
+		set_task(59.0, "fwTaskRestartLoop", TASK_INFINITE_ROUND, _, _, "b")
+		
+		server_cmd("sv_restart 60")
+	}
+	
 	return PLUGIN_CONTINUE;
 }
 
@@ -1481,7 +1610,38 @@ public logevent_bomb_defused()
 // the round ends
 public logevent_round_end()
 {
-	roundEnded = 1;
+	if (!task_exists(TASK_INFINITE_ROUND))
+		roundEnded = 1;
+	
+	//client_print(0, print_chat, "[logevent_round_end] roundEnded: %d.", roundEnded)
+}
+
+public fwTaskRestartLoop()
+{
+	if (!ggActive || !get_pcvar_num(gg_dm) || !get_pcvar_num(gg_dm_infinite_round))
+	{
+		remove_task(TASK_INFINITE_ROUND)
+		
+		roundEnded = 1;
+		
+		return;
+	}
+	
+	new iIDsPlayers[32], iT, iCT;
+	
+	get_players(iIDsPlayers, iT, "eh", "TERRORIST")
+	get_players(iIDsPlayers, iCT, "eh", "CT")
+	
+	if (!iT || !iCT)
+	{
+		remove_task(TASK_INFINITE_ROUND)
+		
+		roundEnded = 1;
+		
+		return;
+	}
+	
+	server_cmd("sv_restart 60")
 }
 
 // hostage is touched
@@ -2463,7 +2623,7 @@ public cmd_joinclass(id)
 	if(roundEnded || (bombStatus[3] == BOMB_PLANTED && !get_pcvar_num(gg_dm_spawn_afterplant)))
 		return PLUGIN_CONTINUE;
 
-	set_task(5.0,"check_joinclass",TASK_CHECK_JOINCLASS+id);
+	set_task(3.0,"check_joinclass",TASK_CHECK_JOINCLASS+id);
 	return PLUGIN_CONTINUE;
 }
 
@@ -2619,8 +2779,9 @@ public respawn_countdown(id)
 	
 	if(dm_countdown & 2)
 	{
-		set_hudmessage(255,255,255,-1.0,0.75,0,6.0,1.0,0.1,0.5);
-		ShowSyncHudMsg(id,hudSyncCountdown,"%L",id,"RESPAWN_COUNTDOWN",respawn_timeleft[id]);
+		set_hudmessage(255,255,255,-1.0,0.75,0,0.0,1.1,0.0,0.0);
+		show_hudmessage(id,"%L",id,"RESPAWN_COUNTDOWN",respawn_timeleft[id]);
+		//ShowSyncHudMsg(id,hudSyncCountdown,"%L",id,"RESPAWN_COUNTDOWN",respawn_timeleft[id]);
 	}
 
 	if(--respawn_timeleft[id] >= 1) set_task(1.0,"respawn_countdown",id);
@@ -2642,7 +2803,7 @@ public respawn(taskid)
 	// clear countdown
 	new dm_countdown = get_pcvar_num(gg_dm_countdown);
 	if(dm_countdown & 1) client_print(id,print_center," ");
-	if(dm_countdown & 2) ClearSyncHud(id,hudSyncCountdown);
+	//if(dm_countdown & 2) ClearSyncHud(id,hudSyncCountdown);
 
 	// alive, and not in the broken sort of way
 	if(is_user_alive(id)) return;
@@ -2784,7 +2945,7 @@ public remove_spawn_protection(taskid)
 
 	if(!is_user_connected(id)) return;
 	
-	if(get_pcvar_num(gg_dm_sp_mode) == 2) fm_set_user_godmode(id,0);
+	if(fm_get_user_godmode(id)) fm_set_user_godmode(id,0);//get_pcvar_num(gg_dm_sp_mode) == 2
 	fm_set_rendering(id); // reset back to normal
 }
 
@@ -3763,7 +3924,7 @@ public toggle_gungame(taskid)
 		show_armory_entitys();
 
 		// clear HUD message
-		if(warmup > 0) ClearSyncHud(0,hudSyncWarmup);
+		//if(warmup > 0) ClearSyncHud(0,hudSyncWarmup);
 
 		warmup = -1;
 		warmupWeapon[0] = 0;
@@ -3959,20 +4120,22 @@ public manage_pruning()
 public warmup_check(taskid)
 {
 	warmup--;
-	set_hudmessage(255,255,255,-1.0,0.4,0,6.0,1.0,0.1,0.2);
+	set_hudmessage(255,255,255,-1.0,0.4,0,0.0,1.1,0.0,0.0);
 
 	if(warmup <= 0)
 	{
 		warmup = -13;
 		warmupWeapon[0] = 0;
 
-		ShowSyncHudMsg(0,hudSyncWarmup,"%L",LANG_PLAYER,"WARMUP_ROUND_OVER");
+		show_hudmessage(0,"%L",LANG_PLAYER,"WARMUP_ROUND_OVER");
+		//ShowSyncHudMsg(0,hudSyncWarmup,"%L",LANG_PLAYER,"WARMUP_ROUND_OVER");
 		restart_round(1);
 		
 		return;
 	}
 
-	ShowSyncHudMsg(0,hudSyncWarmup,"%L",LANG_PLAYER,"WARMUP_ROUND_DISPLAY",warmup);
+	show_hudmessage(0,"%L",LANG_PLAYER,"WARMUP_ROUND_DISPLAY",warmup);
+	//ShowSyncHudMsg(0,hudSyncWarmup,"%L",LANG_PLAYER,"WARMUP_ROUND_DISPLAY",warmup);
 	set_task(1.0,"warmup_check",taskid);
 }
 
@@ -4013,7 +4176,7 @@ public show_leader_display()
 	if(teamplay) get_team_name(CsTeams:leader,leaderName,9);
 	else get_user_name(leader,leaderName,31);
 	
-	set_hudmessage(200,200,200,get_pcvar_float(gg_leader_display_x),get_pcvar_float(gg_leader_display_y),_,_,LEADER_DISPLAY_RATE+0.5,0.0,0.0);
+	set_hudmessage(200,200,200,get_pcvar_float(gg_leader_display_x),get_pcvar_float(gg_leader_display_y),_,0.0,LEADER_DISPLAY_RATE+0.1,0.0,0.0);
 	
 	if(numLeaders > 1)
 	{
@@ -4022,11 +4185,20 @@ public show_leader_display()
 			static otherName[10];
 			get_team_name((leader == 1) ? CS_TEAM_CT : CS_TEAM_T,otherName,9);
 
-			ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s + %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,otherName,leaderLevel,teamLvlWeapon[leader])
+			show_hudmessage(0,"%L: %s + %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,otherName,leaderLevel,teamLvlWeapon[leader])
+			//ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s + %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,otherName,leaderLevel,teamLvlWeapon[leader])
 		}
-		else ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s +%i (%i - %s)",LANG_PLAYER,"LEADER",leaderName,numLeaders-1,leaderLevel,lvlWeapon[leader]);
+		else
+		{
+			show_hudmessage(0,"%L: %s +%i (%i - %s)",LANG_PLAYER,"LEADER",leaderName,numLeaders-1,leaderLevel,lvlWeapon[leader]);
+			//ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s +%i (%i - %s)",LANG_PLAYER,"LEADER",leaderName,numLeaders-1,leaderLevel,lvlWeapon[leader]);
+		}
 	}
-	else ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,leaderLevel,(teamplay) ? teamLvlWeapon[leader] : lvlWeapon[leader]);
+	else
+	{
+		show_hudmessage(0,"%L: %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,leaderLevel,(teamplay) ? teamLvlWeapon[leader] : lvlWeapon[leader]);
+		//ShowSyncHudMsg(0,hudSyncLDisplay,"%L: %s (%i - %s)",LANG_PLAYER,"LEADER",leaderName,leaderLevel,(teamplay) ? teamLvlWeapon[leader] : lvlWeapon[leader]);
+	}
 	
 	return 1;
 }
@@ -4588,7 +4760,7 @@ player_teamchange(id,oldTeam,newTeam)
 	if(oldTeam == 0 && (newTeam == 1 || newTeam == 2) && !roundEnded && get_pcvar_num(gg_dm) && !task_exists(TASK_CHECK_JOINCLASS+id))
 	{
 		remove_task(TASK_CHECK_DEATHMATCH+id);
-		set_task(5.0,"check_deathmatch",TASK_CHECK_DEATHMATCH+id);
+		set_task(3.0,"check_deathmatch",TASK_CHECK_DEATHMATCH+id);
 	}
 	
 	// keep track of time
@@ -4978,7 +5150,7 @@ start_warmup()
 		}
 		
 		// clear leader display for warmup
-		if(warmup > 0) ClearSyncHud(0,hudSyncLDisplay);
+		//if(warmup > 0) ClearSyncHud(0,hudSyncLDisplay);
 	}
 }
 
@@ -4997,8 +5169,8 @@ public refresh_nade(taskid)
 	// get bots to use the grenade (doesn't work very well)
 	if(is_user_bot(id))
 	{
-		engclient_cmd(id,WEAPON_HEGRENADE);
-		client_cmd(id,WEAPON_HEGRENADE);
+		engclient_cmd(id,"weapon_hegrenade");
+		//client_cmd(id,WEAPON_HEGRENADE);
 	}
 }
 
@@ -5045,11 +5217,15 @@ stock refill_ammo(id,current=0)
 		current = 0;
 	}
 	
-	new armor = get_pcvar_num(gg_give_armor), helmet = get_pcvar_num(gg_give_helmet);
+	new armor = get_pcvar_num(gg_give_armor)
+	if (armor > 0)
+	{
+		new helmet = get_pcvar_num(gg_give_helmet);
 
-	// giving armor and helmets away like candy
-	if(helmet) cs_set_user_armor(id,armor,CS_ARMOR_VESTHELM);
-	else cs_set_user_armor(id,armor,CS_ARMOR_KEVLAR);
+		// giving armor and helmets away like candy
+		if(helmet) cs_set_user_armor(id,armor,CS_ARMOR_VESTHELM);
+		else cs_set_user_armor(id,armor,CS_ARMOR_KEVLAR);
+	}
 
 	// didn't find anything valid to refill somehow
 	if(wpnid < 1 || wpnid > 30 || !fullName[0])
@@ -5535,8 +5711,8 @@ stock change_level(id,value,just_joined=0,show_message=1,always_score=0,play_sou
 	// update the leader display (cvar check done in that function)
 	if(!just_joined)
 	{
-		remove_task(TASK_LEADER_DISPLAY);
-		show_leader_display();
+		//remove_task(TASK_LEADER_DISPLAY);
+		//show_leader_display();
 		
 		new Float:lead_sounds = get_pcvar_float(gg_lead_sounds);
 		if(lead_sounds > 0.0 && (!teamplay || effect_team)) play_lead_sounds(id,oldLevel,lead_sounds);
@@ -6169,11 +6345,15 @@ win(winner,loser)
 		// delay it, because it will reset stuff
 		set_task(1.1,"restart_round",floatround(chattime-1.1));
 
-		set_task(floatmax(chattime-0.1,1.2),"restart_gungame",czero ? get_cvar_num("bot_stop") : 0);
+		set_task(floatmax(chattime-0.1,1.2),"restart_gungame", bot_stop ? get_pcvar_num(bot_stop) : 0);
 		set_task(floatmax(chattime+5.0,0.1),"stop_win_sound",currentWinSound);
 		
-		if(czero) server_cmd("bot_stop 1"); // freeze CZ bots
+		if(bot_stop) set_pcvar_num(bot_stop, 1); // server_cmd("bot_stop 1")freeze CZ bots
 	}
+
+	new setup[512];
+	get_pcvar_string(gg_endmap_setup,setup,511);
+	if(setup[0]) server_cmd(setup);
 }
 
 // restart gungame, for the next map iteration
@@ -6208,7 +6388,11 @@ public restart_gungame(old_bot_stop_value)
 		fm_set_user_godmode(player,0);
 		welcomed[player] = 1; // also don't show welcome again
 	}
-	if(czero) server_cmd("bot_stop %i",old_bot_stop_value); // unfreeze CZ bots
+	
+	if(bot_stop && get_pcvar_num(bot_stop) == 1)
+		set_pcvar_num(bot_stop, old_bot_stop_value)
+	
+	//server_cmd("bot_stop %i",old_bot_stop_value); // unfreeze CZ bots
 
 	// only have warmup once?
 	if(!get_pcvar_num(gg_warmup_multi)) warmup = -13; // -13 is the magical stop number
@@ -8878,7 +9062,8 @@ stock precache_sound_special(sound[])
 {
 	if(!sound[0]) return;
 	
-	if(containi(sound,".mp3") != -1) precache_generic(sound);
+	if(containi(sound,".mp3") != -1)
+		precache_generic(sound);
 	else
 	{
 		// stop at ( character to allow precaching sounds that use speak's special functions, eg sound/ambience/xtal_down1(e70)
@@ -8888,8 +9073,14 @@ stock precache_sound_special(sound[])
 		if(containi(value,".wav") == -1) formatex(value[len],63-len,".wav");
 
 		// precache_sound doesn't take the "sound/" prefix
-		if(equali(value,"sound/",6)) precache_sound(value[6]);
-		else precache_sound(value);
+		if(equali(value,"sound/",6))
+			precache_generic(value);//[6]
+		else
+		{
+			format(value, charsmax(value), "sound/%s", value)
+			
+			precache_generic(value);
+		}
 	}
 }
 
@@ -9006,7 +9197,7 @@ stock get_gg_mapcycle_file(filename[],len)
 // another easy function to play sound via cvar
 stock play_sound_by_cvar(id,pcvar)
 {
-	static value[64];
+	new value[64];
 	get_pcvar_string(pcvar,value,63);
 
 	if(!value[0]) return;
@@ -9173,8 +9364,9 @@ gungame_hudmessage(id,Float:holdTime,msg[],any:...)
 	vformat(newMsg,190,msg,4);
 
 	// show it
-	set_hudmessage(255,255,255,-1.0,0.8,0,6.0,holdTime,0.1,0.5);
-	return ShowSyncHudMsg(id,hudSyncReqKills,newMsg);
+	set_hudmessage(255,255,255,-1.0,0.8,0,0.0,holdTime+0.1,0.0,0.0);
+	//return ShowSyncHudMsg(id,hudSyncReqKills,newMsg);
+	return show_hudmessage(id,newMsg);
 }
 
 // start a map vote
